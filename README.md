@@ -9,11 +9,11 @@
 
 # Установка:
 #### *Чтобы были эмодзи и всё отображалось корректно лучше использовать VS Code или Windows Terminal*
-Открываем cmd в папке скрипта и прописываем:
+Открываем cmd и прописываем:
 1. `cd путь/к/проекту`
-2. `python3 -m venv venv`
-3. MacOS/Linux `source venv/bin/activate` | Windows `.\venv\Scripts\activate`
-4. `pip install -r requirements.txt`
+3. `python -m venv venv`
+4. `venv\Scripts\activate`
+5. `pip install -r requirements.txt`
 
 # Запуск:
 ```
