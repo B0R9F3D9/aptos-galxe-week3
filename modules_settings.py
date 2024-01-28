@@ -8,6 +8,7 @@ from better_automation.twitter import TwitterClient, TwitterAccount
 from modules import *
 from settings import *
 from utils.sleep import sleep
+from utils.decorators import retry
 from config import TWITTER_FOLLOW_IDS, GOOGLE_FORM_URL
 
 
@@ -52,6 +53,7 @@ async def checker_module(accs: list[Aptos]) -> None:
     await checker.check()
 
 
+@retry
 async def twitter_module(twitters: list[TwitterAccount]) -> None:
     for twitter in twitters:
         client = TwitterClient(twitter)
@@ -62,6 +64,7 @@ async def twitter_module(twitters: list[TwitterAccount]) -> None:
         client.close()
 
 
+@retry
 async def google_form_module(accs: list[Aptos], emails: list[str]) -> None:
     url = GOOGLE_FORM_URL + '/formResponse?pli=1'
     ua = UserAgent()
