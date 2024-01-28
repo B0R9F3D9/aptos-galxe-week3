@@ -1,5 +1,6 @@
 # Aptos 3 неделя Galxe
-![image](https://i.postimg.cc/yY5Rg75V/photo-2024-01-28-14-41-33.jpg)
+<img src="https://i.postimg.cc/Y23X8zTC/image.png" width="444"  /> 
+<img src="https://i.postimg.cc/XJggHnHz/image.png" width="444" />
 
 # Настройка
 * В файл `data/twitters.txt` вписываем base64 куки от твиттера с новой строки или твиттеры в формате `логин:пароль:почта:пароль:кукиbase64`
