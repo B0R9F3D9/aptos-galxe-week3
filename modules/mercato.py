@@ -18,7 +18,7 @@ class Mercato:
         nft_name = choice(list(BID_NFTS.keys()))
         nft_address = BID_NFTS[nft_name]
         nft_address = AccountAddress.from_str(nft_address)
-        bid_amount = randint(1, 333)
+        bid_amount = randint(88, 345)
         bid_quantity = 1
 
         logger.info(f'{self.acc.info} | Делаю бид на Mercato на "{nft_name}" нфт')
