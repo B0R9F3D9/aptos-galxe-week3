@@ -21,7 +21,7 @@ class Topaz:
         nft_address = BID_NFTS[nft_name]
         nft_address = AccountAddress.from_str(nft_address)
         fee_schedule = AccountAddress.from_str(TOPAZ_FEE_SCHEDULE)
-        bid_amount = randint(1, 333)
+        bid_amount = randint(88, 345)
         bid_quantity = 1
         bid_hours = randint(1, 24)
         time_expiration = (int(time()) + (bid_hours * 3600)) * 1000 * 1000
