@@ -14,7 +14,6 @@ BID_NFTS = {
     'AptMap V2': '0xdd68321f2dadca29e37ed7dd05300f3a1bb5df96c5aa72231cb7ba65414cfb10',
     'Buy Bitcoin': '0xec7e43fe3847b302c380caaa6c107a3fc9f2e0bec8c18ddd4e784324481a7cba',
     'Aptos ONE V2': '0x3d94d2eb4aea99cdf051a817c1e9f31d2166c79ed301578c75c31e38d4be747e',
-    'Aptos Monkeys': '0xf932dcb9835e681b21d2f411ef99f4f5e577e6ac299eebee2272a39fb348f702',
     'Pontem Dark Ages': '0x7fef9d50cd1a2ee2068617b086b98ec434f1728d7cadcc7088c402df4585ce41',
     'MAVRIK': '0xf3778cf4d8b6d61ab3d79c804797ef7417e258449d2735b0f405e604b81f7916',
     'Bruh Bears': '0x43ec2cb158e3569842d537740fd53403e992b9e7349cc5d3dfaa5aff8faaef2',
