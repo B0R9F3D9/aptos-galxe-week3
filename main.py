@@ -3,19 +3,19 @@ from modules_settings import *
 from utils.sleep import sleep
 from utils.pk_from_mnemonic import mnemonic_to_private_key
 
-from loguru import logger
-from sys import stderr
-from datetime import datetime
 import asyncio, sys
+from loguru import logger
+from datetime import datetime
 from string import ascii_letters, digits
 from random import choices, shuffle
 from questionary import Choice, select
+from concurrent.futures import ThreadPoolExecutor
 from better_automation.twitter import TwitterAccount
 
 date_now = datetime.now().strftime("%d-%m-%Y")
 format = '<white>{time:HH:mm:ss}</white> | <bold><level>{level: <7}</level></bold> | <level>{message}</level>'
 logger.remove()
-logger.add(stderr, format=format)
+logger.add(sys.stderr, format=format)
 logger.add(f'logs/{date_now}.log', format=format, level='INFO')
 
 
@@ -50,6 +50,7 @@ async def get_module() -> callable or str:
             Choice("1) Минт нфт на Wapal", mint_wapal),
             Choice("2) Бид нфт на Mercato", bid_mercato),
             Choice("3) Бид нфт на Topaz", bid_topaz),
+            Choice("4) Авто минт/бид", complete_bid_mint),
             Choice("4) Чекер кошельков", checker_module),
             Choice("5) Подписаться на каналы Twitter", twitter_module),
             Choice("6) Заполнить гугл форму", google_form_module),
@@ -84,6 +85,12 @@ async def main(accs: list[Aptos]) -> None:
         if acc != accs[-1]:
             await sleep(*SLEEP_AFTER_ACC)
 
+def create_aptos(id_wallet_tuple):
+    _id, wallet = id_wallet_tuple
+    if not wallet.startswith('0x'):
+        wallet = '0x' + mnemonic_to_private_key(wallet).hex()
+    return Aptos(_id, wallet)
+
 
 if __name__ == "__main__":
     if sys.version_info >= (3, 8) and sys.platform.lower().startswith("win"):
@@ -91,10 +98,9 @@ if __name__ == "__main__":
 
     with open('data/wallets.txt', 'r') as file:
         WALLETS = [x.strip() for x in file.readlines()]
-    for _id, wallet in enumerate(WALLETS, 1):
-        if not wallet.startswith('0x'):
-            wallet = '0x' + mnemonic_to_private_key(wallet).hex()
-        WALLETS[_id - 1] = Aptos(_id, wallet)
+    with ThreadPoolExecutor(max_workers=7) as executor: 
+        futures = [executor.submit(create_aptos, (_id, wallet)) for _id, wallet in enumerate(WALLETS, 1)]
+        WALLETS = [future.result() for future in futures]
 
     with open('data/twitters.txt', 'r') as file:
         TWITTERS = [x.strip() for x in file.readlines()]
