@@ -81,11 +81,11 @@ async def main(accs: list[Aptos]) -> None:
 
     module_settings = await get_module_settings(module)
     for acc in accs:
-        await module(acc, module_settings)
-        if acc != accs[-1]:
+        result = await module(acc, module_settings)
+        if acc != accs[-1] and not result:
             await sleep(*SLEEP_AFTER_ACC)
 
-def create_aptos(id_wallet_tuple):
+def create_aptos(id_wallet_tuple: tuple[int, str]) -> Aptos:
     _id, wallet = id_wallet_tuple
     if not wallet.startswith('0x'):
         wallet = '0x' + mnemonic_to_private_key(wallet).hex()
