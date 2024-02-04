@@ -48,16 +48,20 @@ async def bid_topaz(acc: Aptos, module_settings: list) -> None:
             await sleep(*SLEEP_BETWEEN_TXS)
 
 
-async def complete_bid_mint(acc: Aptos, module_settings: list) -> None:
+async def complete_bid_mint(acc: Aptos, module_settings: list) -> None | bool:
+    if acc.mint and acc.bid:
+        return True
     if not acc.mint:
         await mint_wapal(acc, module_settings)
     if not acc.bid:
         module = choice([bid_mercato, bid_topaz])
         await module(acc, module_settings)
 
+
 async def checker_module(accs: list[Aptos]) -> None:
     checker = Checker(accs)
     await checker.check()
+
 
 @retry
 async def twitter_module(twitters: list[TwitterAccount]) -> None:
@@ -68,6 +72,7 @@ async def twitter_module(twitters: list[TwitterAccount]) -> None:
             await client.follow(channel)
         logger.success(f'@{me.username} Успешно подписался на все твиттеры!')
         client.close()
+
 
 @retry
 async def google_form_module(accs: list[Aptos], emails: list[str]) -> None:
